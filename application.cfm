@@ -1,0 +1,1 @@
+<cfapplication name="ripper" sessionmanagement="yes">
