@@ -17,11 +17,6 @@ fixed up regex
 <cfparam name="form.ripJavascript"   default="">
 <cfparam name="form.killImages"      default="">
 <cfparam name="form.stealthMode"     default="">
-<cfparam name="session.structLinks"  default="">
-<cfparam name="session.structURLs"   default="">
-<cfparam name="session.result"       default="">
-<cfparam name="rippedPage.page"      default="">
-<cfparam name="rippedPage.css"       default="">
 <cfset objRipper  = createObject("component", "grimRipper").init()> 
 
 <cfif isnumeric(link) AND session.keyExists("structURLs")>
@@ -43,10 +38,13 @@ fixed up regex
 
     <label for="ripCSS">External CSS</label> 
     <input name="ripCSS"        type="checkbox" value="checked" id="ripCSS" #form.ripCSS#>
+
     <label for="ripJavascript">External Javascript</label> 
     <input name="ripJavascript" type="checkbox" value="checked" id="ripJavascript" #form.ripJavascript#>
+
     <label for="killImages">Kill Images</label> 
     <input name="killImages"    type="checkbox" value="checked" id="killImages" #form.killImages#>
+
     <label for="stealthMode">Stealth Mode</label> 
     <input name="stealthMode"   type="checkbox" value="checked" id="stealthMode" #form.stealthMode# onclick="javascript:checkAll('urlform');">
   </cfoutput>

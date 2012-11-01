@@ -8,14 +8,14 @@ component displayname="grimRipper" output="false" {
 * with this I can simply load a blocked pages html like a news article, wikipedia etc.
 * this is not intended to be fully usable to browse the entire internet.
 * no license what so ever.
-* this is currently 80% off alpha :S
+* this is currently 80% away from alpha :S
 **/
 
 //------------------------------------------- CONSTRUCTOR -----------------------
  
-	public function init() {
-		// setup structure for URLs and there alias URL
-		if( ! session.keyexists("structLinks") ){
+  public function init() {
+  // setup structure for URLs and there alias URL
+  if( ! session.keyexists("structLinks") ){
        session.structLinks = {};
     }
 
@@ -23,24 +23,24 @@ component displayname="grimRipper" output="false" {
        session.structURLs  = {};
     }
     
-		return this;
-	}
+  return this;
+  }
 
 //---------------------------- public methods ------------------
 
-	public struct function getPage( required string urlToLoad
+  public struct function getPage( required string urlToLoad
                                 , urlDisplayPage = "index.cfm"
                                 , ripCSS         = ""
                                 , ripJavascript  = ""
                                 , killImages     = "") { 
     var webpage         = "";
-    var ripped          = { page = "", javaScript = "", css = ""};
+    var ripped          = { page = "", js = "", css = ""};
     var arrHrefs        = "";
 
     session.structLinks = {};
     session.structURLs  = {};
 
-		if( len(arguments.urlToLoad) ){
+    if( len(arguments.urlToLoad) ){
 
       webpage     = _getURL     ( arguments.urlToLoad );
       arrHrefs    = _getHREFs   ( webpage             );
@@ -49,40 +49,40 @@ component displayname="grimRipper" output="false" {
                                 , urlDisplayPage = arguments.urlDisplayPage);
 
       if( len(arguments.ripCSS) ){
-          ripped            = _getCSS( ripped.page );
+          ripped      = _getCSS( ripped.page );
       }
 
       if( len(arguments.killImages) ){
-          ripped.page       = _setImagesToBlank(ripped.page);
+          ripped.page = _setImagesToBlank(ripped.page);
       }
 
       if( len(arguments.ripJavascript) ){
-          ripped = _getJavascript( ripped );
+          ripped      = _getJavascript( ripped );
       }
     }
-		return ripped; 
-	} 
+  return ripped; 
+  } 
 
 //------------------------------------------- PRIVATE METHODS -------------------------------------------
-	
-	private any function _getURL( required string urlToRip ) { 
+  
+  private any function _getURL( required string urlToRip ) { 
     var webPage = {};
 
     http method="GET" url="#replace(arguments.urlToRip, """", "", "all")#" result="webPage" resolveurl="Yes";
  
-	  return webPage.fileContent;
-	}
+    return webPage.fileContent;
+  }
     
   private any function _getHREFs( required string webpage ) { 
 
     var arrLinks = _getUrlsViaJavaRegExLookUp( webpage      = arguments.webPage
                                              , regExPattern = "<a[\w=\s""]+href=""https?://([-\w\.]+)+(:\d+)?(/([\w/_\-\.]*(\?+)?)?)?[""\']+");
     return arrLinks;
-  }	
+  } 
     
   private any function _rewriteURLs( required array  arrHrefs
                                    , required string rippedPage
-                                   , string urlDisplayPage = "index.cfm") { 
+                                   ,          string urlDisplayPage = "index.cfm") { 
    var rtnVariable = "";
    var countVar    = 1;
    var rippedPage  = arguments.rippedPage;
@@ -115,7 +115,7 @@ component displayname="grimRipper" output="false" {
     var arrJsLinks      = _getUrlsViaJavaRegExLookUp( webpage      = rippedPage
                                                     , regExPattern = "(http)?[sS:]*?[()/\w\.-]+\.js"
                                                     );
-    // lets loop over the array of found css files and get the contents of each file
+    // lets loop over the array of found JS files and get the contents of each file
     loop array="#arrJsLinks#" index="name"{
         http method = "GET" url="#name#" result="jsContent" resolveurl="Yes";
         rippedPage  = ReplaceNoCase(rippedPage, name, "", "all");
@@ -167,7 +167,7 @@ component displayname="grimRipper" output="false" {
         arrLinks.Append( objMatcher.Group() ) ;
     }
 
-		return arrLinks;
-	}
+    return arrLinks;
+  }
 
 }
