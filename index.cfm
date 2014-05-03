@@ -55,24 +55,23 @@ fixed up regex
 <cfhtmlhead text="#rippedPage.css#" />
 <cfsavecontent variable="checkboxJavascript">
 <script language="javascript">
-function checkAll(formname)
-{
-  var checkboxes = new Array(); 
-  checkboxes = document[formname].getElementsByTagName('input');
-
-  if(!(document.getElementById('stealthMode').checked)){                   
-    var checktoggle = 0;
-  }
-  else {   
-    var checktoggle = 1;
-  }
-
-  for (var i=0; i<checkboxes.length; i++)  {
-    if (checkboxes[i].type == 'checkbox')   {
-      checkboxes[i].checked = checktoggle;
+    function checkAll(formname){
+        var checkboxes = new Array(); 
+        checkboxes     = document[formname].getElementsByTagName('input');
+        
+        if(!(document.getElementById('stealthMode').checked)){
+            var checktoggle = 0;
+        }
+        else {   
+            var checktoggle = 1;
+        }
+        
+        for (var i=0; i<checkboxes.length; i++)  {
+            if (checkboxes[i].type === 'checkbox')   {
+                checkboxes[i].checked = checktoggle;
+            }
+        }
     }
-  }
-}
 </script>
 <cfif rippedPage.keyExists("js")>
   <cfoutput>

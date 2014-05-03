@@ -1,8 +1,6 @@
 component displayname="grimRipper" output="false" { 
 /**
-* Yes this contains commas to the left
 * This is will work only in Railo 4.0+
-* Correct this isn't the correct language for this.
 * The goal of this is so I can access pages blocked by websense or the chinese firewall when I visit China etc
 * don't mention Tor, Proxy etc, if I'm in China I can't look that up, if its a internet cafe I can't change browser settings.
 * with this I can simply load a blocked pages html like a news article, wikipedia etc.
